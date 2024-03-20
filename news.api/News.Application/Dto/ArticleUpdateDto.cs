@@ -1,8 +1,7 @@
-namespace News.Domain.Entities;
+namespace News.Application.Dto;
 
-public class Article
+public class ArticleDto
 {
-    public int Id { get; set; }
     public string Title { get; set; }
     public string Content { get; set; }
     public DateTimeOffset PublishedDate { get; set; }
