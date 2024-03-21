@@ -6,10 +6,11 @@ namespace News.Persistence.Extensions;
 
 public static class DependencyExtensions
 {
-    public static void RegisterPersistence(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static void RegisterPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        serviceCollection.AddDbContext<NewsDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("News")));
+        var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") ?? "News";
+        services.AddDbContext<NewsDbContext>(options =>
+            options.UseNpgsql(connectionString));
 
     }
 }
