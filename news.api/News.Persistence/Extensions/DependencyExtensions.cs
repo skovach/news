@@ -8,7 +8,7 @@ public static class DependencyExtensions
 {
     public static void RegisterPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") ?? "News";
+        var connectionString = configuration.GetConnectionString("News");
         services.AddDbContext<NewsDbContext>(options =>
             options.UseNpgsql(connectionString));
 

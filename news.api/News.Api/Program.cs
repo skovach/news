@@ -20,6 +20,9 @@ builder.Services.AddControllers();
 builder.Services.RegisterPersistence(builder.Configuration);
 builder.Services.RegisterApplication(builder.Configuration);
 
+builder.WebHost.UseUrls("http://*:" + Environment.GetEnvironmentVariable("PORT"));
+
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -30,11 +33,10 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
