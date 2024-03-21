@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using News.Application.Dto;
 using News.Domain.Entities;
 using News.Persistence;
@@ -11,7 +12,7 @@ public class CreateArticleCommand(ArticleDto model) : IRequest<Article>
     public ArticleDto Model { get; } = model;
 }
 
-public class CreateArticleCommandHandler(NewsDbContext context, IMapper mapper) : IRequestHandler<CreateArticleCommand, Article>
+public class CreateArticleCommandHandler(NewsDbContext context, IMapper mapper, ILogger<CreateArticleCommandHandler> logger) : IRequestHandler<CreateArticleCommand, Article>
 {
     public async Task<Article> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
     {
@@ -26,8 +27,7 @@ public class CreateArticleCommandHandler(NewsDbContext context, IMapper mapper) 
         }
         catch (Exception e)
         {
-            // imagine that the app has logging
-            Console.WriteLine(e);
+            logger.LogError(e.Message);
             throw;
         }
 

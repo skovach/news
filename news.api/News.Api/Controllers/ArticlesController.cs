@@ -8,7 +8,7 @@ using News.Domain.Entities;
 namespace News.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ArticlesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

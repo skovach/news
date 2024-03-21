@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using News.Persistence;
 
 namespace News.Application.UseCases.Command;
@@ -9,7 +10,7 @@ public class DeleteArticleCommand(int id) : IRequest<bool>
     public int Id { get; } = id;
 }
 
-public class DeleteArticleCommandHandler(NewsDbContext context) : IRequestHandler<DeleteArticleCommand, bool>
+public class DeleteArticleCommandHandler(NewsDbContext context, ILogger<DeleteArticleCommandHandler> logger) : IRequestHandler<DeleteArticleCommand, bool>
 {
     public async Task<bool> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
     {
@@ -29,7 +30,7 @@ public class DeleteArticleCommandHandler(NewsDbContext context) : IRequestHandle
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            logger.LogError(e.Message);
             throw;
         }
 

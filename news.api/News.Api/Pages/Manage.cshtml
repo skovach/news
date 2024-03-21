@@ -1,0 +1,39 @@
+@page
+@model Manage
+@{
+    ViewData["Title"] = "Manage Articles";
+}
+
+<div class="article-list">
+    @foreach (var article in Model.Articles)
+    {
+        <div class="article-item-manage">
+            <span class="article-title">@article.Title</span>
+            <div class="icons-container">
+                <a href="/Update/@article.Id" class="update-icon"><i class="fas fa-edit"></i></a>
+                <span onclick="deleteArticle(@article.Id)" class="delete-icon"><i class="fas fa-trash-alt"></i></span>
+            </div>
+        </div>
+    }
+    
+    <a href="/Create" class="add-icon"><i class="fas fa-plus-circle"></i> Add Article</a>
+
+</div>
+
+@section Scripts {
+    <script>
+    function deleteArticle(articleId) {
+        if (!confirm("Are you sure you want to delete this article?")) return;
+        
+        fetch('/api/articles/' + articleId, { method: 'DELETE' })
+            .then(response => {
+                if (response.ok) {
+                    alert("Article deleted successfully.");
+                    window.location.reload();
+                } else {
+                    alert("There was an issue deleting the article.");
+                }
+            });
+    }
+    </script>
+}

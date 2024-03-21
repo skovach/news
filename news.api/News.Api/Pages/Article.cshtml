@@ -1,0 +1,13 @@
+@page "{id:int}"
+@model ArticleModel
+@{
+    ViewData["Title"] = "Article Details";
+}
+
+<div class="article-page-container">
+    <div class="article-details">
+        <h2 class="article-title">@Model.Article.Title</h2>
+        <p class="article-content">@Model.Article.Content</p>
+        <p><small>Published: @Model.Article.PublishedDate.ToString("MMM dd, yyyy")</small></p>
+    </div>
+</div>
