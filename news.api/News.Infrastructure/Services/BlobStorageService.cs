@@ -9,7 +9,7 @@ namespace News.Infrastructure.Services;
 public class BlobStorageService(BlobServiceClient blobServiceClient, IConfiguration configuration)
     : IBlobStorageService
 {
-    private readonly string _containerName = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING");
+    private readonly string _containerName = configuration["AzureBlobStorage:ContainerName"];
 
     public async Task<string> UploadImageAsync(IFormFile image)
     {

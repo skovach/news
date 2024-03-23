@@ -10,7 +10,7 @@ public static class DependencyExtensions
 {
     public static void RegisterInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton(x => new BlobServiceClient(configuration["AzureBlobStorage:ConnectionString"]));
+        services.AddSingleton(x => new BlobServiceClient(Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING")));
         services.AddSingleton<IBlobStorageService, BlobStorageService>();
 
         
