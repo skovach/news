@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,7 @@ public class UpdateArticleCommand(int id, ArticleUpdateDto model) : IRequest<Art
     public ArticleUpdateDto Model { get; } = model;
 }
 
-public class UpdateArticleCommandHandler(IBlobStorageService blobStorageService, NewsDbContext context, ILogger<UpdateArticleCommandHandler> logger) : IRequestHandler<UpdateArticleCommand, Article?>
+public class UpdateArticleCommandHandler(IMapper mapper, IBlobStorageService blobStorageService, NewsDbContext context, ILogger<UpdateArticleCommandHandler> logger) : IRequestHandler<UpdateArticleCommand, Article?>
 {
     public async Task<Article?> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
     {
@@ -27,8 +28,7 @@ public class UpdateArticleCommandHandler(IBlobStorageService blobStorageService,
                 return null;
             }
 
-            article.Title = request.Model.Title;
-            article.Content = request.Model.Content;
+            mapper.Map(request.Model, article);
 
             if (request.Model.ImageFile != null)
             {
