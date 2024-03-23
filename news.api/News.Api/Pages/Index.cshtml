@@ -1,10 +1,19 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using News.Domain.Enums
 @model News.Api.Pages.IndexModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="container article-list">
+    
+    <form method="get" class="category-filters">
+        <button name="category" asp-page-handler="Filter" value="All" class="btn filter-all">All</button>
+        <button name="category" asp-page-handler="Filter" value="@((int) Category.Bullish)" class="btn filter-buy">Bullish</button>
+        <button name="category" asp-page-handler="Filter" value="@((int) Category.Bearish)" class="btn filter-sell">Bearish</button>
+    </form>
+    
     @foreach (var article in Model.Articles)
     {
         <div class="article-item">
@@ -12,15 +21,15 @@
                 @* <img src="@article.ImageUrl" alt="Image for @article.Title" style="width:100%; height:auto; border-radius:5px;"> *@
                 <img src="~/images/1.webp" alt="Image for @article.Title" style="width:100%; height:auto; border-radius:5px;">
             </div>
-            
+
             <h5 class="article-title">
                 <a href="/Article/@article.Id" class="article-link">@article.Title</a>
             </h5>
 
             <p class="article-author">By @article.AuthorName</p>
-            
+
             <p class="article-content">@article.Content</p>
-            
+
             <div class="article-meta text-right">
                 <p class="article-date">@article.PublishedDate.ToString("MMMM dd, yyyy")</p>
             </div>

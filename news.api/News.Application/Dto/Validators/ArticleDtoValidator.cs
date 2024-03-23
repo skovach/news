@@ -13,7 +13,14 @@ public class ArticleDtoValidator : AbstractValidator<ArticleDto>
         RuleFor(x => x.Content)
             .NotEmpty().WithMessage("Content is required.");
 
-        RuleFor(x => x.PublishedDate)
-            .LessThan(DateTimeOffset.UtcNow.AddDays(1)).WithMessage("Published date cannot be in the future.");
+        RuleFor(x => x.AuthorName)
+            .NotEmpty().WithMessage("Author Name is required.");
+        
+        RuleFor(x => x.Category)
+            .NotEmpty().WithMessage("Category is required.");
+        
+        RuleFor(x => x.ImageFile)
+            .NotEmpty().WithMessage("Image is required.");
+        
     }
 }

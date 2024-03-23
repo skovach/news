@@ -12,5 +12,11 @@ public class ArticleUpdateDtoValidator : AbstractValidator<ArticleDto>
 
         RuleFor(x => x.Content)
             .NotEmpty().WithMessage("Content is required.");
+
+        RuleFor(x => x.AuthorName)
+            .NotEmpty().WithMessage("Author Name is required.");
+        
+        RuleFor(x => x.Category)
+            .NotEmpty().WithMessage("Category is required.");
     }
 }

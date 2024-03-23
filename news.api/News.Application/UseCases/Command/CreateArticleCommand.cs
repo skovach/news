@@ -19,7 +19,8 @@ public class CreateArticleCommandHandler(NewsDbContext context, IMapper mapper, 
         try
         {
             var newArticle = mapper.Map<Article>(request.Model);
-
+            newArticle.PublishedDate = DateTimeOffset.Now;
+            
             context.Articles.Add(newArticle);
             await context.SaveChangesAsync(cancellationToken);
 

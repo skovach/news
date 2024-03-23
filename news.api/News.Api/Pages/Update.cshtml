@@ -7,43 +7,41 @@
 
 <div class="update-form">
     <h2 class="update-title">Update Article</h2>
-    <form method="post" enctype="multipart/form-data"> <!-- Note the enctype attribute for file upload -->
+    <form method="post" enctype="multipart/form-data"> 
         
         <!-- Title -->
         <div class="form-group">
-            <label asp-for="Article.Title" class="form-label"></label>
-            <input asp-for="Article.Title" class="form-control input" />
-            <span asp-validation-for="Article.Title" class="text-danger"></span>
+            <label asp-for="Model.Title" class="form-label"></label>
+            <input asp-for="Model.Title" class="form-control input" />
+            <span asp-validation-for="Model.Title" class="text-danger"></span>
         </div>
         
         <!-- Content -->
         <div class="form-group">
-            <label asp-for="Article.Content" class="form-label"></label>
-            <textarea asp-for="Article.Content" class="form-control textarea"></textarea>
-            <span asp-validation-for="Article.Content" class="text-danger"></span>
+            <label asp-for="Model.Content" class="form-label"></label>
+            <textarea asp-for="Model.Content" class="form-control textarea"></textarea>
+            <span asp-validation-for="Model.Content" class="text-danger"></span>
         </div>
         
         <!-- Category -->
         <div class="form-group">
-            <label asp-for="Article.Category" class="form-label"></label>
-            <select asp-for="Article.Category" asp-items="Html.GetEnumSelectList<Category>()" class="form-control">
+            <label asp-for="Model.Category" class="form-label"></label>
+            <select asp-for="Model.Category" asp-items="Html.GetEnumSelectList<Category>()" class="form-control">
                 <option selected="selected" value="">Please select a category</option>
             </select>
-            <span asp-validation-for="Article.Category" class="text-danger"></span>
+            <span asp-validation-for="Model.Category" class="text-danger"></span>
         </div>
 
         <!-- Author Name -->
         <div class="form-group">
-            <label asp-for="Article.AuthorName" class="form-label"></label>
-            <input asp-for="Article.AuthorName" class="form-control input" />
-            <span asp-validation-for="Article.AuthorName" class="text-danger"></span>
+            <label asp-for="Model.AuthorName" class="form-label"></label>
+            <input asp-for="Model.AuthorName" class="form-control input" />
+            <span asp-validation-for="Model.AuthorName" class="text-danger"></span>
         </div>
 
-        <!-- Image (Assuming you want to allow uploading a new image) -->
         <div class="form-group">
-            <label for="imageUpload" class="form-label">Upload New Image</label>
-            <input type="file" id="imageUpload" name="ImageFile" class="form-control" />
-            <!-- No asp-for attribute for file input, handling is slightly different -->
+            <label asp-for="Model.ImageFile" class="form-label">Upload New Image</label>
+            <input asp-for="Model.ImageFile" type="file" class="form-control" />
         </div>
 
         <button type="submit" class="btn btn-primary">Save changes</button>

@@ -9,10 +9,7 @@ namespace News.Api.Pages;
 public class Create(IMediator mediator) : PageModel
 {
     [BindProperty]
-    public string Title { get; set; }
-
-    [BindProperty]
-    public string Content { get; set; }
+    public ArticleDto Article { get; set; }
     
     public void OnGet()
     {
@@ -25,8 +22,7 @@ public class Create(IMediator mediator) : PageModel
             return Page();
         }
 
-        var article = await mediator.Send(new CreateArticleCommand(new ArticleDto
-            {Title = Title, Content = Content, PublishedDate = DateTimeOffset.UtcNow}));
+        var article = await mediator.Send(new CreateArticleCommand(Article));
 
         return RedirectToPage("/Manage");
     }

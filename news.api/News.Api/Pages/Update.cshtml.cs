@@ -15,7 +15,7 @@ public class Update(IMediator mediator, IMapper mapper) : PageModel
     public int ArticleId { get; set; }
     
     [BindProperty]
-    public ArticleUpdateDto Article { get; set; }
+    public ArticleUpdateDto Model { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
@@ -26,14 +26,14 @@ public class Update(IMediator mediator, IMapper mapper) : PageModel
             return RedirectToPage("/Manage");
         }
 
-        Article = mapper.Map<ArticleUpdateDto>(article);
+        Model = mapper.Map<ArticleUpdateDto>(article);
 
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
-        await mediator.Send(new UpdateArticleCommand(ArticleId, Article));
+        await mediator.Send(new UpdateArticleCommand(ArticleId, Model));
         return RedirectToPage("/Manage");
     }
 }

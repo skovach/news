@@ -244,3 +244,45 @@ label {
   color: #45c265; /* A slightly lighter green for hover effect */
   text-decoration: underline;
 }
+
+.category-filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px; /* Space between this filter line and the articles */
+  border-bottom: 1px solid #ccc; /* Continuous line under the buttons */
+  padding-bottom: 10px; /* Space between the buttons and the line */
+}
+
+.btn {
+  flex-grow: 1; /* Each button grows to fill the form */
+  margin: 0 5px; /* Spacing between buttons */
+  text-align: center; /* Ensure text is centered */
+}
+
+/* Specific styles for each button */
+.filter-all, .filter-buy, .filter-sell {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none; /* Remove default border */
+  color: #fff; /* Text color */
+}
+
+.filter-all {
+  background-color: #e1efca;
+  color: black;
+}
+
+.filter-buy {
+  background-color: #28a745; /* Buy button */
+}
+
+.filter-sell {
+  background-color: #dc3545; /* Sell button */
+}
+
+.filter-buy:hover {
+  background-color: #218838;
+}
+
+.filter-sell:hover {
+  background-color: #c82333;
+} 

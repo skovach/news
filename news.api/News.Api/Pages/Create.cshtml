@@ -1,20 +1,46 @@
 @page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using News.Domain.Enums
 @model Create
 @{
     ViewData["Title"] = "Create Article";
 }
+@{
+    ViewData["Title"] = "Create New Article";
+}
 
-<div class="article-form-container">
-    <h2>Create New Article</h2>
-    <form method="post">
+
+<div class="update-form">
+    <h2 class="update-title">Create New Article</h2>
+    <form method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" class="form-control input" required>
+            <label asp-for="Article.Title" class="form-label">Title</label>
+            <input asp-for="Article.Title" class="form-control input" placeholder="Enter the title"/>
+            <span asp-validation-for="Article.Title" class="text-danger"></span>
         </div>
+
         <div class="form-group">
-            <label for="content">Content</label>
-            <textarea id="content" name="content" class="form-control textarea" required></textarea>
+            <label asp-for="Article.Content" class="form-label">Content</label>
+            <textarea asp-for="Article.Content" class="form-control textarea" placeholder="Article content..."></textarea>
+            <span asp-validation-for="Article.Content" class="text-danger"></span>
         </div>
+
+        <div class="form-group">
+            <label asp-for="Article.Category" class="form-label">Category</label>
+            <select asp-for="Article.Category" class="form-control input" asp-items="Html.GetEnumSelectList<Category>()"></select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Article.AuthorName" class="form-label">Author Name</label>
+            <input asp-for="Article.AuthorName" class="form-control input" placeholder="Author's name"/>
+            <span asp-validation-for="Article.AuthorName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Article.ImageFile" class="form-label">Image</label>
+            <input type="file" asp-for="Article.ImageFile" class="form-control input"/>
+        </div>
+
         <button type="submit" class="btn btn-primary">Create Article</button>
     </form>
 </div>
