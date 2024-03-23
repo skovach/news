@@ -8,6 +8,7 @@ COPY News.Api/News.Api.csproj ./News.Api/
 COPY News.Application/News.Application.csproj ./News.Application/
 COPY News.Persistence/News.Persistence.csproj ./News.Persistence/
 COPY News.Domain/News.Domain.csproj ./News.Domain/
+COPY News.Infrastructure/News.Infrastructure.csproj ./News.Infrastructure/
 RUN dotnet restore
 
 # Copy everything else and build
@@ -15,6 +16,7 @@ COPY News.Api/. ./News.Api/
 COPY News.Application/. ./News.Application/
 COPY News.Persistence/. ./News.Persistence/
 COPY News.Domain/. ./News.Domain/
+COPY News.Infrastructure/. ./News.Infrastructure/
 WORKDIR /app/News.Api
 RUN dotnet publish -c Release -o out
 
