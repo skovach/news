@@ -25,7 +25,7 @@ public class Update(IMediator mediator, IMapper mapper) : PageModel
         {
             return RedirectToPage("/Manage");
         }
-
+        ArticleId = article.Id;
         Model = mapper.Map<ArticleUpdateDto>(article);
 
         return Page();

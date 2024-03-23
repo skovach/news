@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.Application", "News.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.Domain", "News.Domain\News.Domain.csproj", "{3C61ED6A-C1F5-43AF-9832-F4F231B23357}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.Infrastructure", "News.Infrastructure\News.Infrastructure.csproj", "{69FF057D-3355-4401-8D58-8A44C3DB0717}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{3C61ED6A-C1F5-43AF-9832-F4F231B23357}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C61ED6A-C1F5-43AF-9832-F4F231B23357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C61ED6A-C1F5-43AF-9832-F4F231B23357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69FF057D-3355-4401-8D58-8A44C3DB0717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69FF057D-3355-4401-8D58-8A44C3DB0717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69FF057D-3355-4401-8D58-8A44C3DB0717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69FF057D-3355-4401-8D58-8A44C3DB0717}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

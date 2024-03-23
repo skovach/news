@@ -21,4 +21,8 @@
       <ProjectReference Include="..\News.Persistence\News.Persistence.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\images\1.webp" />
+    </ItemGroup>
+
 </Project>

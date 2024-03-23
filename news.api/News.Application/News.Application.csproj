@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\News.Domain\News.Domain.csproj" />
+      <ProjectReference Include="..\News.Infrastructure\News.Infrastructure.csproj" />
       <ProjectReference Include="..\News.Persistence\News.Persistence.csproj" />
     </ItemGroup>
 

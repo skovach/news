@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using News.Application.Extensions;
 using News.Application.UseCases.Query;
+using News.Infrastructure.Extensions;
 using News.Persistence;
 using News.Persistence.Extensions;
 
@@ -19,6 +20,7 @@ builder.Services.AddControllers();
 
 builder.Services.RegisterPersistence(builder.Configuration);
 builder.Services.RegisterApplication(builder.Configuration);
+builder.Services.RegisterInfrastructure(builder.Configuration);
 
 if (!builder.Environment.IsDevelopment())
 {
