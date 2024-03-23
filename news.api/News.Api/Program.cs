@@ -20,8 +20,10 @@ builder.Services.AddControllers();
 builder.Services.RegisterPersistence(builder.Configuration);
 builder.Services.RegisterApplication(builder.Configuration);
 
-builder.WebHost.UseUrls("http://*:" + Environment.GetEnvironmentVariable("PORT"));
-
+if (!builder.Environment.IsDevelopment())
+{
+    builder.WebHost.UseUrls("http://*:" + Environment.GetEnvironmentVariable("PORT"));
+}
 
 var app = builder.Build();
 

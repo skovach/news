@@ -1,22 +1,21 @@
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using News.Application.Dto;
 using News.Application.UseCases.Command;
 using News.Application.UseCases.Query;
+using News.Domain.Entities;
 
 namespace News.Api.Pages;
 
-public class Update(IMediator mediator) : PageModel
+public class Update(IMediator mediator, IMapper mapper) : PageModel
 {
     [BindProperty]
     public int ArticleId { get; set; }
-
+    
     [BindProperty]
-    public string Title { get; set; }
-
-    [BindProperty]
-    public string Content { get; set; }
+    public ArticleUpdateDto Article { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
@@ -27,16 +26,14 @@ public class Update(IMediator mediator) : PageModel
             return RedirectToPage("/Manage");
         }
 
-        ArticleId = article.Id;
-        Title = article.Title;
-        Content = article.Content;
+        Article = mapper.Map<ArticleUpdateDto>(article);
 
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
     {
-        await mediator.Send(new UpdateArticleCommand(ArticleId, new ArticleUpdateDto { Title = this.Title, Content = this.Content }));
+        await mediator.Send(new UpdateArticleCommand(ArticleId, Article));
         return RedirectToPage("/Manage");
     }
 }

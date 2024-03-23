@@ -10,6 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   padding-left: 15px;
+  margin-bottom: 15px;
 }
 
 .nav-content {
@@ -21,6 +22,7 @@ body {
   margin: 0 15px;
   color: #ECECEA !important;
   transition: color 0.3s ease-in-out, transform 0.3s ease;
+  transform-origin: left;
 }
 
 .nav-link:hover {
@@ -29,7 +31,8 @@ body {
 }
 
 .article-list {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .article-item {
@@ -39,6 +42,63 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,.1);
   transition: all 0.3s ease-in-out;
+}
+
+.article-image img {
+  max-height: 200px; /* Adjust based on your preference */
+  object-fit: cover; /* Ensures the image covers the area nicely */
+  border-radius: 5px; /* Consistent with the article item's border-radius */
+  margin-bottom: 15px; /* Space between image and title */
+}
+
+
+.article-title {
+  margin-top: 0;
+  color: #333; /* Dark color for the title for contrast */
+}
+
+.article-author {
+  font-style: italic;
+  color: #666; /* Lighter color for author's name */
+  margin-bottom: 10px; /* Space between author and content */
+}
+
+.article-metadata {
+  color: #777;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.article-author, .article-date {
+  font-style: italic;
+  color: #666; /* Lighter color for author's name */
+  margin-bottom: 10px; /* Space between author and content */,
+  
+}
+
+.article-meta.text-right {
+  text-align: right;
+}
+
+.article-title .article-link {
+  color: #0d3d56;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.article-title .article-link:hover, .article-title .article-link:focus {
+  color: #f2a365;
+  text-decoration: underline;
+}
+
+.article-content {
+  color: #324851;
+}
+
+.article-item:hover {
+  background-color: #ffffff;
+  box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+  transform: translateY(-5px);
 }
 
 .article-item-manage {
@@ -53,35 +113,10 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-.article-item:hover {
-  background-color: #ffffff;
-  box-shadow: 0 8px 12px rgba(0,0,0,0.2);
-  transform: translateY(-5px);
-}
-
 .article-item-manage:hover {
   background-color: #ffffff;
   box-shadow: 0 8px 12px rgba(0,0,0,0.2);
   transform: translateY(-5px);
-}
-
-.article-title {
-  color: #0d3d56;
-}
-
-.article-title .article-link {
-  color: #0d3d56;
-  text-decoration: none;
-  transition: color 0.3s ease-in-out; 
-}
-
-.article-title .article-link:hover, .article-title .article-link:focus {
-  color: #f2a365;
-  text-decoration: underline;
-}
-
-.article-content {
-  color: #324851;
 }
 
 .update-icon, .delete-icon {
@@ -163,21 +198,35 @@ label {
 }
 
 .article-page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Use the full height of the viewport */
-  text-align: center; /* Ensure text within the container is also centered */
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.article-image img {
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .article-details {
-  width: 80%;
-  max-width: 1000px; /* Example max-width, adjust as needed */
-  margin: auto; /* This helps with horizontal centering for wider screens */
-  padding: 20px; /* Adds some space inside the container */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds depth to the container */
-  background-color: #ffffff; /* Optional: in case you want a different background */
+  text-align: justify;
 }
+
+.article-title {
+  margin-top: 0;
+}
+
+.article-meta {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.article-content {
+  line-height: 1.6;
+}
+
 
 .add-icon {
   display: inline-block;
