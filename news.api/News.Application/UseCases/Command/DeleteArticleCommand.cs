@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using News.Persistence;
+using News.Persistence.Repositories;
 
 namespace News.Application.UseCases.Command;
 
@@ -10,21 +11,21 @@ public class DeleteArticleCommand(int id) : IRequest<bool>
     public int Id { get; } = id;
 }
 
-public class DeleteArticleCommandHandler(NewsDbContext context, ILogger<DeleteArticleCommandHandler> logger) : IRequestHandler<DeleteArticleCommand, bool>
+public class DeleteArticleCommandHandler(IArticleRepository repository, ILogger<DeleteArticleCommandHandler> logger) : IRequestHandler<DeleteArticleCommand, bool>
 {
     public async Task<bool> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var article = await context.Articles.SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
+            var article = await repository.GetByIdAsync(request.Id, cancellationToken: cancellationToken);
 
             if (article == null)
             {
                 return false;
             }
 
-            context.Articles.Remove(article);
-            await context.SaveChangesAsync(cancellationToken);
+            repository.Delete(article);
+            await repository.SaveAsync(cancellationToken);
 
             return true;
         }

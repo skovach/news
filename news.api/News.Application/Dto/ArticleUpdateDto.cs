@@ -10,6 +10,6 @@ public class ArticleUpdateDto
 
     public Category Category { get; set; }
     public string AuthorName { get; set; }
-    public string ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
     public IFormFile? ImageFile { get; set; }
 }

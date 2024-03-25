@@ -10,6 +10,6 @@ public class Manage(IMediator mediator) : PageModel
 
     public async Task OnGetAsync()
     {
-        Articles = await mediator.Send(new GetArticlesQuery());
+        Articles = (await mediator.Send(new GetArticlesQuery())).ToList();
     }
 }

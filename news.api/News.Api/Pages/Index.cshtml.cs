@@ -6,14 +6,18 @@ using News.Domain.Enums;
 
 namespace News.Api.Pages;
 
-public class IndexModel(IMediator mediator) : PageModel
+public class IndexModel(IMediator mediator, IHttpClientFactory httpClientFactory) : PageModel
 {
-    public List<Article> Articles { get; private set; }
+    private HttpClient httpClient =>  httpClientFactory.CreateClient(nameof(Article));
+    public List<Article>? Articles { get; private set; }
 
     public async Task OnGetAsync(Category? category)
     {
-        Articles = category == null 
-            ? await mediator.Send(new GetArticlesQuery())
-            : await mediator.Send(new GetArticlesByCategoryQuery(category!.Value));
+        var url = category == null ? httpClient.BaseAddress.ToString() : $"{httpClient.BaseAddress}/category/{category}";
+        var response = await httpClient.GetAsync(url);
+        if (response.IsSuccessStatusCode)
+        {
+            Articles = await response.Content.ReadFromJsonAsync<List<Article>>();
+        }
     }
 }

@@ -6,6 +6,7 @@ using News.Application.Dto;
 using News.Domain.Entities;
 using News.Infrastructure.Interfaces;
 using News.Persistence;
+using News.Persistence.Repositories;
 
 namespace News.Application.UseCases.Command;
 
@@ -15,13 +16,13 @@ public class UpdateArticleCommand(int id, ArticleUpdateDto model) : IRequest<Art
     public ArticleUpdateDto Model { get; } = model;
 }
 
-public class UpdateArticleCommandHandler(IMapper mapper, IBlobStorageService blobStorageService, NewsDbContext context, ILogger<UpdateArticleCommandHandler> logger) : IRequestHandler<UpdateArticleCommand, Article?>
+public class UpdateArticleCommandHandler(IMapper mapper, IBlobStorageService blobStorageService, IArticleRepository repository, ILogger<UpdateArticleCommandHandler> logger) : IRequestHandler<UpdateArticleCommand, Article?>
 {
     public async Task<Article?> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var article = await context.Articles.SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
+            var article = await repository.GetByIdAsync(request.Id, cancellationToken: cancellationToken);
 
             if (article == null)
             {
@@ -35,8 +36,8 @@ public class UpdateArticleCommandHandler(IMapper mapper, IBlobStorageService blo
                 article.ImageUrl = await blobStorageService.UploadImageAsync(request.Model.ImageFile);
             }
             
-            context.Articles.Update(article);
-            await context.SaveChangesAsync(cancellationToken);
+            repository.Update(article);
+            await repository.SaveAsync(cancellationToken);
 
             return article;
         }

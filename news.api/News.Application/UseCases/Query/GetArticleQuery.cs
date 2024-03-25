@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using News.Domain.Entities;
 using News.Persistence;
+using News.Persistence.Repositories;
 
 namespace News.Application.UseCases.Query;
 
@@ -10,8 +11,8 @@ public class GetArticleQuery(int id) : IRequest<Article?>
     public int Id { get; } = id;
 }
 
-public class GetArticleQueryHandler(NewsDbContext context) : IRequestHandler<GetArticleQuery, Article?>
+public class GetArticleQueryHandler(IArticleRepository repository) : IRequestHandler<GetArticleQuery, Article?>
 {
     public Task<Article?> Handle(GetArticleQuery request, CancellationToken cancellationToken)
-        => context.Articles.SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        => repository.GetByIdAsync(request.Id, cancellationToken);
 }

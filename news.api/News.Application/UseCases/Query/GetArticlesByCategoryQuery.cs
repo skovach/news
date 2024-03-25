@@ -3,19 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using News.Domain.Entities;
 using News.Domain.Enums;
 using News.Persistence;
+using News.Persistence.Repositories;
 
 namespace News.Application.UseCases.Query;
 
-public class GetArticlesByCategoryQuery(Category category) : IRequest<List<Article>>
+public class GetArticlesByCategoryQuery(Category category) : IRequest<IEnumerable<Article>>
 {
     public Category Category { get; } = category;
 }
 
-public class GetArticlesByCategoryQueryHandler(NewsDbContext context) : IRequestHandler<GetArticlesByCategoryQuery, List<Article>>
+public class GetArticlesByCategoryQueryHandler(IArticleRepository repository) : IRequestHandler<GetArticlesByCategoryQuery, IEnumerable<Article>>
 {
-    public Task<List<Article>> Handle(GetArticlesByCategoryQuery request, CancellationToken cancellationToken)
-        => context.Articles
-            .Where(x => x.Category == request.Category)
-            .OrderByDescending(x => x.PublishedDate)
-            .ToListAsync(cancellationToken);
+    public async Task<IEnumerable<Article?>> Handle(GetArticlesByCategoryQuery request, CancellationToken cancellationToken)
+        => await repository.GetByCategoryAsync(request.Category, cancellationToken);
 }

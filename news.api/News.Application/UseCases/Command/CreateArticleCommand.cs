@@ -5,6 +5,7 @@ using News.Application.Dto;
 using News.Domain.Entities;
 using News.Infrastructure.Interfaces;
 using News.Persistence;
+using News.Persistence.Repositories;
 
 namespace News.Application.UseCases.Command;
 
@@ -13,7 +14,7 @@ public class CreateArticleCommand(ArticleDto model) : IRequest<Article>
     public ArticleDto Model { get; } = model;
 }
 
-public class CreateArticleCommandHandler(IBlobStorageService blobStorageService, NewsDbContext context, IMapper mapper, ILogger<CreateArticleCommandHandler> logger) : IRequestHandler<CreateArticleCommand, Article>
+public class CreateArticleCommandHandler(IBlobStorageService blobStorageService, IArticleRepository repository, IMapper mapper, ILogger<CreateArticleCommandHandler> logger) : IRequestHandler<CreateArticleCommand, Article>
 {
     public async Task<Article> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
     {
@@ -24,8 +25,8 @@ public class CreateArticleCommandHandler(IBlobStorageService blobStorageService,
 
             newArticle.ImageUrl = await blobStorageService.UploadImageAsync(request.Model.ImageFile);
 
-            context.Articles.Add(newArticle);
-            await context.SaveChangesAsync(cancellationToken);
+            await repository.AddAsync(newArticle, cancellationToken);
+            await repository.SaveAsync(cancellationToken);
 
             return newArticle;
         }

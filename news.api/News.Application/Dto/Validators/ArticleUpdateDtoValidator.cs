@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace News.Application.Dto.Validators;
 
-public class ArticleUpdateDtoValidator : AbstractValidator<ArticleDto>
+public class ArticleUpdateDtoValidator : AbstractValidator<ArticleUpdateDto>
 {
     public ArticleUpdateDtoValidator()
     {

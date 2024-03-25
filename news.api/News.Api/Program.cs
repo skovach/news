@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using News.Application.Extensions;
 using News.Application.UseCases.Query;
@@ -17,6 +18,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddMediatR(cfg=> cfg.RegisterServicesFromAssemblies(typeof(GetArticlesQuery).GetTypeInfo().Assembly));
 
 builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
 builder.Services.RegisterPersistence(builder.Configuration);
 builder.Services.RegisterApplication(builder.Configuration);

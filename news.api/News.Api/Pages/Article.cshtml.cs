@@ -6,13 +6,18 @@ using News.Domain.Entities;
 
 namespace News.Api.Pages;
 
-public class ArticleModel(IMediator mediator) : PageModel
+public class ArticleModel(IMediator mediator, IHttpClientFactory httpClientFactory) : PageModel
 {
-    public Article Article { get; set; }
+    private HttpClient httpClient =>  httpClientFactory.CreateClient(nameof(Article));
+    public Article? Article { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
-        Article = await mediator.Send(new GetArticleQuery(id));
+        var response = await httpClient.GetAsync($"{httpClient.BaseAddress}/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            Article = await response.Content.ReadFromJsonAsync<Article>();
+        }
 
         if (Article == null)
         {

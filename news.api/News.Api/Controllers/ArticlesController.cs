@@ -4,6 +4,7 @@ using News.Application.Dto;
 using News.Application.UseCases.Command;
 using News.Application.UseCases.Query;
 using News.Domain.Entities;
+using News.Domain.Enums;
 
 namespace News.Api.Controllers;
 
@@ -12,7 +13,7 @@ namespace News.Api.Controllers;
 public class ArticlesController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public Task<List<Article>> GetArticles() => mediator.Send(new GetArticlesQuery());
+    public Task<IEnumerable<Article>> GetArticles([FromQuery] Category category) => mediator.Send(new GetArticlesQuery());
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Article>> GetArticleById(int id)
@@ -21,15 +22,20 @@ public class ArticlesController(IMediator mediator) : ControllerBase
         return article == null ? new NotFoundResult() : Ok(article);
     }
     
+    [HttpGet("category/{category}")]
+    public async Task<IEnumerable<Article>> GetArticleById(Category category) =>
+        await mediator.Send(new GetArticlesByCategoryQuery(category));
+
+    
     [HttpPost]
-    public async Task<ActionResult<Article>> CreateArticle([FromBody] ArticleDto model)
+    public async Task<ActionResult<Article>> CreateArticle([FromForm] ArticleDto model)
     {
         var article = await mediator.Send(new CreateArticleCommand(model));
         return Ok(article);
     }
     
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateArticle(int id, [FromBody] ArticleUpdateDto model)
+    public async Task<IActionResult> UpdateArticle(int id, [FromForm] ArticleUpdateDto model)
     {
         var result = await mediator.Send(new UpdateArticleCommand(id, model));
 
